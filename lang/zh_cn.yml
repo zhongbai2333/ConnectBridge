@@ -1,0 +1,4 @@
+connect_bridge:
+  mcdr:
+    plugin_loaded: "{} 插件完成加载！"
+    

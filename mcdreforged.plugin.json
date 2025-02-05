@@ -1,0 +1,22 @@
+{
+    "id": "connect_bridge",
+    "version": "0.0.1",
+    "name": "ConnectBridge",
+    "description": {
+        "en_us": "Based on ConnectCore. Support cross server chat, cross server transmission, and cross server communication !!here.",
+        "zh_cn": "基于ConnectCore。支持跨服聊天，跨服传送，跨服 !!here。"
+    },
+    "author": "zhongbai233",
+    "link": "https://github.com/zhongbai2333/ConnectBridge",
+    "dependencies": {
+        "connect_core": "*",
+        "auto_msg_title": "*"
+    },
+    "entrypoint": "connect_bridge.mcdr.entry",
+    "archive_name": "ConnectBridge-v{version}.mcdr",
+    "resources": [
+        "lang",
+        "connectcore.plugin.json",
+        "LICENSE"
+    ]
+}
