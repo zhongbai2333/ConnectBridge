@@ -1,3 +1,5 @@
+from mcdreforged.api.types import PluginServerInterface
+
 class CoreControlInterface:
     def __init__(self):
         pass
@@ -5,12 +7,19 @@ class CoreControlInterface:
     # =============
     #  Json Editer
     # =============
-    def get_config(self, config_path: str = None) -> dict:
+    def get_config(
+        self,
+        key: str = "all",
+        default: any = None,
+        config_path: str = None,
+    ) -> dict:
         """
         获取配置文件
 
         Args:
             config_path (str): 配置文件目录, 默认为插件或服务器默认 config 路径
+            key (str): 配置项名称, 默认为 "all", 表示读取所有配置项
+            default (any): 默认值, 如果配置项不存在则返回默认值且写入到配置文件中
 
         Returns:
             dict: 配置文件字典
@@ -43,7 +52,7 @@ class CoreControlInterface:
         """
         pass
 
-    def tr(self, key: str, *args):
+    def tr(self, key: str, *args) -> str:
         """
         获取翻译项 | `translate函数的别称`
 
@@ -59,7 +68,7 @@ class CoreControlInterface:
     # =============
     #   Log Print
     # =============
-    def info(self, msg: any):
+    def info(self, msg: any) -> None:
         """
         输出INFO级别的日志信息。
 
@@ -68,7 +77,7 @@ class CoreControlInterface:
         """
         pass
 
-    def warn(self, msg: any):
+    def warn(self, msg: any) -> None:
         """
         输出WARN级别的日志信息。
 
@@ -77,7 +86,7 @@ class CoreControlInterface:
         """
         pass
 
-    def error(self, msg: any):
+    def error(self, msg: any) -> None:
         """
         输出ERROR级别的日志信息。
 
@@ -86,7 +95,7 @@ class CoreControlInterface:
         """
         pass
 
-    def debug(self, msg: any):
+    def debug(self, msg: any) -> None:
         """
         输出DEBUG级别的日志信息。
 
@@ -98,7 +107,7 @@ class CoreControlInterface:
     # ============
     #   Command
     # ============
-    def add_command(self, command: str, func: callable):
+    def add_command(self, command: str, func: callable) -> None:
         """
         添加命令到命令行界面中。
 
@@ -108,7 +117,7 @@ class CoreControlInterface:
         """
         pass
 
-    def remove_command(self, command: str):
+    def remove_command(self, command: str) -> None:
         """
         移除命令从命令行界面中。
 
@@ -117,7 +126,7 @@ class CoreControlInterface:
         """
         pass
 
-    def set_prompt(self, prompt: str):
+    def set_prompt(self, prompt: str) -> None:
         """
         设置命令行提示符。
 
@@ -126,7 +135,7 @@ class CoreControlInterface:
         """
         pass
 
-    def set_completer_words(self, words: dict):
+    def set_completer_words(self, words: dict) -> None:
         """
         设置命令行补全词典。
 
@@ -135,9 +144,9 @@ class CoreControlInterface:
         """
         pass
 
-    def flush_cli(self):
+    def flush_cli(self) -> None:
         """
-        清空命令行界面。
+        刷新命令行补全词典。
         """
         pass
 
@@ -156,7 +165,7 @@ class CoreControlInterface:
     def get_server_list(self) -> list:
         """
         获取服务器列表
-        
+
         Returns:
             list: 服务器列表
         """
@@ -171,15 +180,19 @@ class CoreControlInterface:
         """
         pass
 
-
 class PluginControlInterface(CoreControlInterface):
-    def __init__(self, sid: str, sinfo: dict, self_path: str, config_path: str):
+    def __init__(
+        self,
+        sid: str,
+        self_path: str,
+        config_path: str,
+        mcdr: PluginServerInterface = None,
+    ):
         """
         插件控制接口
 
         Args:
             sid (str): 插件ID
-            sinfo (dict): 插件Info
             self_path (str): 自身路径
             config_path (str): 配置文件路径
         """
@@ -191,7 +204,7 @@ class PluginControlInterface(CoreControlInterface):
     # ========
     #   Send
     # ========
-    def send_data(self, server_id: str, plugin_id: str, data: dict):
+    def send_data(self, server_id: str, plugin_id: str, data: dict) -> None:
         """
         向指定的服务器发送消息。
 
@@ -204,7 +217,7 @@ class PluginControlInterface(CoreControlInterface):
 
     def send_file(
         self, server_id: str, plugin_id: str, file_path: str, save_path: str
-    ):
+    ) -> None:
         """
         向指定的服务器发送文件。
 

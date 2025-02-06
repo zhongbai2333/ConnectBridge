@@ -10,7 +10,7 @@
     "link": "https://github.com/zhongbai2333/ConnectBridge",
     "dependencies": {
         "connect_core": "*",
-        "auto_msg_title": "*"
+        "auto_msg_title": ">=0.1.4"
     },
     "entrypoint": "connect_bridge.mcdr.entry",
     "archive_name": "ConnectBridge-v{version}.mcdr",
