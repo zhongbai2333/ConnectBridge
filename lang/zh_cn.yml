@@ -1,4 +1,4 @@
 connect_bridge:
   mcdr:
     plugin_loaded: "{} 插件完成加载！"
-    
+    cant_found_plugin: "找不到插件 {}。{} 功能受限！"

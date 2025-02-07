@@ -1,22 +1,21 @@
+import os
 from mcdreforged.api.all import *
 from connect_core.api.mcdr import get_plugin_control_interface
-from auto_msg_title.api import get_player_info
 from connect_bridge.constants import PLUGIN_ID
 from connect_bridge.mcdr.recv_data import PraseMsg
 
-__mcdr_server, _control_interface, _prase_msg = None, None, None
+_control_interface, _prase_msg = None, None
 
 
 # MCDR Start point
 def on_load(server: PluginServerInterface, _):
-    global __mcdr_server, _control_interface, _prase_msg
-    __mcdr_server = server
+    global _control_interface, _prase_msg
     _control_interface = get_plugin_control_interface(
         PLUGIN_ID, f"{PLUGIN_ID}.mcdr.entry", server
     )
     if not _control_interface:
         return
-    _prase_msg = PraseMsg(__mcdr_server, _control_interface)
+    _prase_msg = PraseMsg(_control_interface)
 
     if not _control_interface.get_config():
         config = {
@@ -46,6 +45,9 @@ def on_load(server: PluginServerInterface, _):
     _control_interface.info(_control_interface.tr("mcdr.plugin_loaded", PLUGIN_ID))
 
 
+def on_unload(_):
+    _control_interface.send_data("all", PLUGIN_ID, {"type": 3})
+
 def new_connect(server_list):
     """有新的连接"""
     pass
@@ -53,7 +55,7 @@ def new_connect(server_list):
 
 def del_connect(server_list):
     """有断开连接"""
-    pass
+    _prase_msg.del_server(server_list)
 
 
 def on_user_info(_, info):
@@ -72,13 +74,16 @@ def on_user_info(_, info):
 
 def connected():
     """连接成功"""
+    os.system(
+        f"title [{_control_interface.get_server_id()}]{_control_interface.get_config()["server_name"]}"
+    )
     _control_interface.send_data(
         "all",
         PLUGIN_ID,
         {
             "type": 0,
             "server_name": _control_interface.get_config()["server_name"],
-            "port": __mcdr_server.get_server_information().port,
+            "port": _control_interface.mcdr.get_server_information().port,
         },
     )
 
