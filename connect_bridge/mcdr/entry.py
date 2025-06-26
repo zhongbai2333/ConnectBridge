@@ -1,4 +1,5 @@
 import os
+import time
 from mcdreforged.api.all import *
 from connect_core.api.mcdr import get_plugin_control_interface
 
@@ -81,7 +82,10 @@ def disconnected():
     pass
 
 
+@new_thread("wait_onload")
 def websockets_started():
+    while not _control_interface:
+        time.sleep(0.5)
     if not _config.server_name:
         _config.server_name = _control_interface.get_server_id()
 

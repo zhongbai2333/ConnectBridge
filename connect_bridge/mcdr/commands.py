@@ -8,7 +8,7 @@ class CommandAction(object):
     def __init__(self):
         self.config = GlobalContext.get_config()
         self.names = self.config.command_name
-        self.perms = self.config.premission
+        self.perms = self.config.permission
         self.message = self.config.command_message
         self._control_interface = GlobalContext.get_control()
         self.apply(self._control_interface.mcdr)

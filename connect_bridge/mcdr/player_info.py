@@ -4,7 +4,7 @@ from connect_bridge.context import GlobalContext
 from connect_bridge.constants import PLUGIN_ID
 
 class PlayerInfo(object):
-    def __init__(self):
+    def __init__(self) -> None:
         self.config = GlobalContext.get_config()
         self.control = GlobalContext.get_control()
 

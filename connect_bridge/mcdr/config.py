@@ -7,7 +7,7 @@ class Config(Serializable):
     allow_tp: bool = False
     allow_spectator_tp: bool = True
     auto_spectator_tp: bool = True
-    premission: Dict[str, int] = {
+    permission: Dict[str, int] = {
         "list": 1,
         "tp": 1,
         "here": 1,
